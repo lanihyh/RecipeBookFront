@@ -85,6 +85,8 @@ public class AddRecipe extends javax.swing.JFrame {
         instructionsUpper = new javax.swing.JPanel();
         instructions = new javax.swing.JLabel();
         instSeparator1 = new javax.swing.JSeparator();
+        nextButt = new javax.swing.JButton();
+        prevButt = new javax.swing.JButton();
         ingredientList = new javax.swing.JPanel();
         ingredientsHeader = new javax.swing.JLabel();
         ingSep = new javax.swing.JSeparator();
@@ -242,6 +244,28 @@ public class AddRecipe extends javax.swing.JFrame {
         instSeparator1.setForeground(new java.awt.Color(153, 153, 153));
         instructionsUpper.add(instSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 660, 10));
 
+        nextButt.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        nextButt.setForeground(new java.awt.Color(102, 102, 255));
+        nextButt.setText(">");
+        nextButt.setEnabled(false);
+        nextButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtActionPerformed(evt);
+            }
+        });
+        instructionsUpper.add(nextButt, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 3, 40, 25));
+
+        prevButt.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        prevButt.setForeground(new java.awt.Color(102, 102, 255));
+        prevButt.setText("<");
+        prevButt.setEnabled(false);
+        prevButt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtActionPerformed(evt);
+            }
+        });
+        instructionsUpper.add(prevButt, new org.netbeans.lib.awtextra.AbsoluteConstraints(578, 3, 40, 25));
+
         GreyLayout.add(instructionsUpper, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 680, -1));
 
         ingredientList.setBackground(new java.awt.Color(204, 204, 255));
@@ -309,14 +333,14 @@ public class AddRecipe extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(PurpleLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(PurpleLayout, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(PurpleLayout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PurpleLayout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -355,23 +379,24 @@ public class AddRecipe extends javax.swing.JFrame {
     private int stepNumber = 1;
     private final List<String> stepsList = new ArrayList<>();
     private int currentSteps = 0;
-    JButton nextButton = new JButton(">");
-    JButton prevButton = new JButton("<");
+    private int remainingSteps;
     HashMap<String, JLabel> stepLabels = new HashMap<>();
     boolean run = true;
-    private boolean prevButtonHasListener = false;
+    String steps = "";
+
 
     private void stepsPlusButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stepsPlusButtActionPerformed
         // TODO add your handling code here:
 
         if (currentSteps == 4) {
-            nextButton.doClick();
+            nextButt.doClick();
             currentSteps = 0;
         }
+        
 
         //Get the instruction text from instructions input text area
-        String steps = stepsTextArea.getText();
-
+        steps = stepsTextArea.getText();
+        
         // Check if no input has been made
         if (steps.isEmpty()) {
             // Don't create step if there is no input 
@@ -381,7 +406,6 @@ public class AddRecipe extends javax.swing.JFrame {
         // Add the step instruction to the list
         stepsList.add(steps);
 
-        //System.out.println(stepsList.get(0));
         // Create a new JLabel with step number and instruction
         JLabel stepLabel = new javax.swing.JLabel();
         stepLabel.setFont(new java.awt.Font("Segoe UI", 1, 12));
@@ -425,75 +449,18 @@ public class AddRecipe extends javax.swing.JFrame {
         stepsPanel.revalidate();
         stepsPanel.repaint();
 
-        // Add pagination button every 4 steps
+        // Enable pagination button every 4 steps
         if (stepNumber % 4 == 0) {
-
-            nextButton.setPreferredSize(new Dimension(40, 25));
-            nextButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                    stepsPanel.removeAll();
-                    stepsPanel.revalidate();
-                    stepsPanel.repaint();
-
-                }
-            });
-            instructionsUpper.add(nextButton, new AbsoluteConstraints(620, 3, 40, 25));
-            instructionsUpper.revalidate();
-            instructionsUpper.repaint();
-
+            nextButt.setEnabled(true);
+        } else {
+            nextButt.setEnabled(false);
         }
 
-        if (stepNumber % 4 != 0) {
-            nextButton.setEnabled(false);
+        //boolean hasRun = false;
+        if (stepNumber > 4) {
+            prevButt.setEnabled(true);
         } else {
-            nextButton.setEnabled(true);
-        }
-
-        boolean hasRun = false;
-
-        if (stepNumber > 4 && hasRun == false) {
-            hasRun = true;
-            prevButton.setPreferredSize(new Dimension(40, 25));
-            prevButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                   /* if (!prevButtonHasListener) {
-                        prevButtonHasListener = true;
-                    stepsPanel.removeAll(); */
-                    checkSteps();
-
-
-                    /* // Calculate the range of steps to display
-                        int startIdx = Math.max(stepsList.size() - currentSteps - 4, 0);
-                        int endIdx = Math.max(stepsList.size() - currentSteps, 0);
-
-                        for (int i = startIdx; i < endIdx; i++) {
-                            System.out.println(stepsList.get(i));
-                        }
-
-                        if (currentSteps < stepsList.size()) {
-                            currentSteps = Math.min(currentSteps + 4, stepsList.size());
-                        }
-
-                        stepsPanel.revalidate();
-                        stepsPanel.repaint();
-                    }
-                    */
-                     
-                }
-
-            });
-
-            instructionsUpper.add(prevButton, new AbsoluteConstraints(575, 3, 40, 25));
-            prevButton.setEnabled(true);
-            instructionsUpper.revalidate();
-            instructionsUpper.repaint();
-
-        } else {
-            prevButton.setEnabled(false);
-
+            prevButt.setEnabled(false);
         }
         // Increment the step number and current steps
         stepNumber++;
@@ -504,25 +471,6 @@ public class AddRecipe extends javax.swing.JFrame {
 
     }//GEN-LAST:event_stepsPlusButtActionPerformed
 
-    public boolean checkSteps() {
-        if (run == true && stepNumber > 4 && stepNumber % 4 == 0) {
-            run = false;
-            stepNumber = stepNumber - 8;
-            for (int x = 0; x < 4; x++) {
-                System.out.println(stepsList.get(stepNumber));
-                stepNumber++;
-            }
-            return run;
-  
-        } else {
-            for (int testNumber = stepNumber; testNumber % 4 != 0; testNumber++) {
-                stepNumber++;
-                System.out.println("Isn't dividable by 4 yet, currently: " + stepNumber);
-            }
-        }
-        return run;
-    } 
-    
 
     private void cookingTimeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cookingTimeBoxActionPerformed
         // TODO add your handling code here:
@@ -639,6 +587,126 @@ public class AddRecipe extends javax.swing.JFrame {
 
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    private void prevButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Stepnumber before decrease is "+stepNumber);
+        stepNumber--;
+        System.out.println("ButtonPressed");
+        stepsPanel.removeAll();
+        if (stepNumber > 4 && stepNumber % 4 == 0) {
+
+            generateSteps(stepNumber = stepNumber - 8);
+
+        } else if(stepNumber > 4 && stepNumber % 4 != 0) {
+            for (int testNumber = stepNumber; testNumber % 4 != 0; testNumber++) {
+                System.out.println("Isn't dividable by 4 yet, currently: " + stepNumber);
+                stepNumber++;
+            }
+            System.out.println("stepNumber after loop is " + stepNumber);
+            generateSteps(stepNumber = stepNumber - 8);
+
+        } else {
+            prevButt.setEnabled(false);
+            generateSteps(0);
+        }
+
+        stepsPanel.revalidate();
+        stepsPanel.repaint();
+    }//GEN-LAST:event_prevButtActionPerformed
+
+    public int generateSteps(int stepNumber) {
+        
+        int test;
+        System.out.println("remainingsteps top of generate is"+remainingSteps);
+        if (remainingSteps > 3) {
+            System.out.println("Its more than 3 it is" + remainingSteps);
+            test = 4;
+            System.out.println("Test is "+test);
+        } else {
+            System.out.println("Its less than 3 it is: "+ remainingSteps);
+            test = remainingSteps;
+            System.out.println("test is "+test);
+        } 
+        for (int x = 0; x < test; x++) {
+            System.out.println(stepsList.get(stepNumber));
+            // Create a new JLabel with step number and instruction
+            JLabel stepLabel = new javax.swing.JLabel();
+            stepLabel.setFont(new java.awt.Font("Segoe UI", 1, 12));
+            stepLabel.setForeground(new java.awt.Color(102, 102, 255));
+            int tempStepNr = stepNumber + 1;
+            stepLabel.setText("  Step" + " " + tempStepNr + ":  ");
+
+            // Create a new JTextArea within a JScrollPane
+            JTextArea stepTextArea = new javax.swing.JTextArea();
+            stepTextArea.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+            stepTextArea.setBackground(new java.awt.Color(204, 204, 255));
+            stepTextArea.setForeground(new java.awt.Color(51, 51, 51));
+            stepTextArea.setLineWrap(true);
+            stepTextArea.setWrapStyleWord(true);
+            stepTextArea.setColumns(20);
+            stepTextArea.setText(stepsList.get(stepNumber));
+
+            JScrollPane stepScrollPane = new javax.swing.JScrollPane(stepTextArea);
+            stepScrollPane.setBackground(new java.awt.Color(204, 204, 255));
+            stepScrollPane.setBorder(null);
+            stepScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            stepTextArea.setEditable(false);
+            // make the text area read-only
+
+            // Add the step label and text area to the panel
+            JPanel stepPanel = new javax.swing.JPanel();
+            stepPanel.setBackground(new java.awt.Color(204, 204, 255));
+
+            stepPanel.setLayout(new java.awt.BorderLayout());
+            stepPanel.add(stepLabel, BorderLayout.WEST);
+            stepPanel.add(stepScrollPane, BorderLayout.CENTER);
+
+            // Add the step panel to steps panel
+            stepsPanel.add(stepPanel);
+            stepsPanel.revalidate();
+            stepsPanel.repaint();
+            nextButt.setEnabled(true);
+
+            stepNumber++;
+            stepCheck();
+            
+        }
+        getRemainingSteps();
+        System.out.println("remainingSteps after loop is " + remainingSteps);
+        //System.out.println("stepNumber after is: " + stepNumber);
+        //System.out.println(stepsList.size() + " - " + stepNumber + " = " + (stepsList.size() - stepNumber));
+        return stepsList.size();
+    }
+
+    public void stepCheck() {
+        int indexBounds = Integer.parseInt(stepsList.get(stepNumber));
+        if (indexBounds <= 4) {
+            prevButt.setEnabled(false);
+        }
+        if (indexBounds >= 4) {
+            nextButt.setEnabled(true);
+        }
+    }
+
+    private void nextButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtActionPerformed
+        // TODO add your handling code here:
+
+        stepsPanel.removeAll();
+        //System.out.println("remainingSteps is: "+remainingSteps);
+        generateSteps(stepNumber - 1);
+        stepsPanel.revalidate();
+        stepsPanel.repaint();
+
+    }//GEN-LAST:event_nextButtActionPerformed
+
+    public int getRemainingSteps() {
+        System.out.println(stepsList.size() + "steplistsize");
+        System.out.println(stepNumber + "stepNumber");
+        remainingSteps = stepsList.size() - (stepNumber - 1);
+        System.out.println("Remaining steps are "+ remainingSteps);
+        return remainingSteps;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -963,6 +1031,8 @@ public class AddRecipe extends javax.swing.JFrame {
     private javax.swing.JPanel instructionsUpper;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField nameBox;
+    private javax.swing.JButton nextButt;
+    private javax.swing.JButton prevButt;
     private javax.swing.JLabel recipeName;
     private javax.swing.JTextField recipeNameBox;
     private javax.swing.JButton saveButton;
