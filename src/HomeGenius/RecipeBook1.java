@@ -58,17 +58,15 @@ public class RecipeBook1 extends javax.swing.JFrame {
         y = new javax.swing.JButton();
         image2 = new javax.swing.JLabel();
         image1 = new javax.swing.JLabel();
-        recipeName2 = new javax.swing.JLabel();
         recipeName1 = new javax.swing.JLabel();
         description1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        description2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
         addRecipeButt = new javax.swing.JButton();
         view2Butt = new javax.swing.JButton();
         view1Butt = new javax.swing.JButton();
         separator2 = new javax.swing.JSeparator();
         saveButt = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         Home = new javax.swing.JLabel();
         Genius = new javax.swing.JLabel();
         HouseIcon = new javax.swing.JLabel();
@@ -275,18 +273,11 @@ public class RecipeBook1 extends javax.swing.JFrame {
         y.setBorder(null);
         GreyLayout.add(y, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 60, -1, -1));
 
-        image2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/90x90.png"))); // NOI18N
         image2.setToolTipText("");
         GreyLayout.add(image2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 90, 90));
 
-        image1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Apple90.png"))); // NOI18N
         image1.setToolTipText("");
         GreyLayout.add(image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 90, 90));
-
-        recipeName2.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        recipeName2.setForeground(new java.awt.Color(102, 102, 255));
-        recipeName2.setText("Aglio e Olio e peperoncino");
-        GreyLayout.add(recipeName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, -1, -1));
 
         recipeName1.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         recipeName1.setForeground(new java.awt.Color(102, 102, 255));
@@ -306,20 +297,6 @@ public class RecipeBook1 extends javax.swing.JFrame {
         description1.setViewportView(jTextArea1);
 
         GreyLayout.add(description1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 145, 270, 50));
-
-        description2.setBorder(null);
-        description2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        description2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        jTextArea2.setBackground(new java.awt.Color(242, 242, 242));
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextArea2.setRows(5);
-        jTextArea2.setText("An italian classic - easy to make with\njust 4 ingredients and it always is a winner!");
-        jTextArea2.setBorder(null);
-        description2.setViewportView(jTextArea2);
-
-        GreyLayout.add(description2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 265, 270, 50));
 
         addRecipeButt.setBackground(new java.awt.Color(102, 102, 255));
         addRecipeButt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -370,6 +347,9 @@ public class RecipeBook1 extends javax.swing.JFrame {
             }
         });
         GreyLayout.add(saveButt, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 90, 25));
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+        GreyLayout.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 900, 100));
 
         PurpleLayout.add(GreyLayout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 900, 460));
 
@@ -476,20 +456,15 @@ public class RecipeBook1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Genius;
     private javax.swing.JPanel GreyLayout;
-    private javax.swing.JPanel GreyLayout1;
     private javax.swing.JLabel Home;
     private javax.swing.JLabel HouseIcon;
     private javax.swing.JPanel PurpleLayout;
-    private javax.swing.JPanel PurpleLayout1;
     private javax.swing.JButton a;
-    private javax.swing.JButton addImage;
-    private javax.swing.JLabel addRecipe;
     private javax.swing.JButton addRecipeButt;
     private javax.swing.JButton b;
     private javax.swing.JButton c;
     private javax.swing.JButton d;
     private javax.swing.JScrollPane description1;
-    private javax.swing.JScrollPane description2;
     private javax.swing.JButton e;
     private javax.swing.JButton f;
     private javax.swing.JButton g;
@@ -498,8 +473,8 @@ public class RecipeBook1 extends javax.swing.JFrame {
     private javax.swing.JLabel image1;
     private javax.swing.JLabel image2;
     private javax.swing.JButton j;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JButton k;
     private javax.swing.JButton l;
     private javax.swing.JButton m;
@@ -510,12 +485,10 @@ public class RecipeBook1 extends javax.swing.JFrame {
     private javax.swing.JButton r;
     private javax.swing.JLabel recipeBook;
     private javax.swing.JLabel recipeName1;
-    private javax.swing.JLabel recipeName2;
     private javax.swing.JButton s;
     private javax.swing.JButton saveButt;
     private javax.swing.JSeparator separator2;
     private javax.swing.JSeparator separatorMain;
-    private javax.swing.JSeparator separatorMain1;
     private javax.swing.JButton t;
     private javax.swing.JButton u;
     private javax.swing.JButton v;
